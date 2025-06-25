@@ -1,5 +1,3 @@
-import google.generativeai as genai
-# from google import genai
 from openai import OpenAI
 import openai
 import time
@@ -25,7 +23,7 @@ def call_llm(conversation_history,model_name, temperature):
             "role": "system",
             "content": model_output
         })
-        # print(model_output)
+        print(model_output)
         return model_output
 
     except openai.RateLimitError as e:
@@ -43,7 +41,7 @@ def call_llm(conversation_history,model_name, temperature):
         return call_llm(conversation_history,model_name, temperature)
     except Exception as e:
         print(f"{e}")
-        retry_time = int(input("Retry time (seconds): "))
+        retry_time = 30
         print(f"Retrying in {retry_time} seconds...")
         time.sleep(retry_time)
         return call_llm(conversation_history,model_name, temperature)
